@@ -15,6 +15,8 @@
  */
 package com.example.android.quakereport;
 
+import android.app.LoaderManager;
+import android.content.Loader;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -24,9 +26,11 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EarthquakeActivity extends AppCompatActivity {
+public class EarthquakeActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<EarthQuakeDetails>> {
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
+
+
     private List<EarthQuakeDetails> earthQuakeDetailsList = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private EarthQuakeAdapter mEarthQuakeAdapter;
@@ -42,6 +46,7 @@ public class EarthquakeActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mEarthQuakeAdapter);
+        getLoaderManager().initLoader(1,null,this).forceLoad();
 
         prepareMovieData();
 
@@ -49,27 +54,21 @@ public class EarthquakeActivity extends AppCompatActivity {
     }
 
     private void prepareMovieData() {
-        EarthQuakeDetails earthQuakeDetails = new EarthQuakeDetails("5.1", "San Francisco", "Feb 2,2016");
-        earthQuakeDetailsList.add(earthQuakeDetails);
-
-        earthQuakeDetails = new EarthQuakeDetails("4.1", "London", "Jun 6,2016");
-        earthQuakeDetailsList.add(earthQuakeDetails);
-
-        earthQuakeDetails = new EarthQuakeDetails("3.1", "Tokyo", "July 8,2016");
-        earthQuakeDetailsList.add(earthQuakeDetails);
-
-        earthQuakeDetails = new EarthQuakeDetails("6.1", "Mexico City", "August 12,2016");
-        earthQuakeDetailsList.add(earthQuakeDetails);
-
-        earthQuakeDetails = new EarthQuakeDetails("7.1", "Moscow", "Sep 23,2016");
-        earthQuakeDetailsList.add(earthQuakeDetails);
-
-        earthQuakeDetails = new EarthQuakeDetails("4.7", "Rio de Janeiro", "Nov 27,2016");
-        earthQuakeDetailsList.add(earthQuakeDetails);
-
-        earthQuakeDetails = new EarthQuakeDetails("2.1", "Paris", "Dec 17,2016");
-        earthQuakeDetailsList.add(earthQuakeDetails);
-
         mEarthQuakeAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public Loader<List<EarthQuakeDetails>> onCreateLoader(int id, Bundle args) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<EarthQuakeDetails>> loader, List<EarthQuakeDetails> data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<EarthQuakeDetails>> loader) {
+
     }
 }

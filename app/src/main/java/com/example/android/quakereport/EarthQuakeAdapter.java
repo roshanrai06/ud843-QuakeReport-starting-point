@@ -38,9 +38,9 @@ public class EarthQuakeAdapter extends RecyclerView.Adapter<EarthQuakeAdapter.My
     @Override
     public void onBindViewHolder(EarthQuakeAdapter.MyViewHolder holder, int position) {
         EarthQuakeDetails earthQuakeDetails = mEarthQuakeDetailsList.get(position);
-        holder.magnitude.setText(earthQuakeDetails.getMagnitude());
-        holder.name.setText(earthQuakeDetails.getCityName());
-        holder.date.setText(earthQuakeDetails.getDate());
+      //  holder.magnitude.setText(earthQuakeDetails.getMagnitude());
+       // holder.name.setText(earthQuakeDetails.getCityName());
+       // holder.date.setText(earthQuakeDetails.getDate());
 
     }
 

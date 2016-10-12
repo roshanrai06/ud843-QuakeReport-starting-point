@@ -32,43 +32,43 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
 
     private List<EarthQuakeDetails> earthQuakeDetailsList = new ArrayList<>();
-    private RecyclerView mRecyclerView;
     private EarthQuakeAdapter mEarthQuakeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
+        RecyclerView mRecyclerView;
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
+        mRecyclerView.setHasFixedSize(true);
         mEarthQuakeAdapter = new EarthQuakeAdapter(earthQuakeDetailsList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mEarthQuakeAdapter);
-        getLoaderManager().initLoader(1,null,this).forceLoad();
-
-        prepareMovieData();
+        getLoaderManager().initLoader(1, null, this).forceLoad();
 
 
     }
 
-    private void prepareMovieData() {
+    private void prepareMovieData(List<EarthQuakeDetails> data) {
+        earthQuakeDetailsList.addAll(data);
         mEarthQuakeAdapter.notifyDataSetChanged();
     }
 
     @Override
     public Loader<List<EarthQuakeDetails>> onCreateLoader(int id, Bundle args) {
-        return null;
+        return new EarthQuakeLoader(this);
     }
 
     @Override
     public void onLoadFinished(Loader<List<EarthQuakeDetails>> loader, List<EarthQuakeDetails> data) {
+        prepareMovieData(data);
 
     }
 
     @Override
     public void onLoaderReset(Loader<List<EarthQuakeDetails>> loader) {
-
+        prepareMovieData(new ArrayList<EarthQuakeDetails>());
     }
 }
